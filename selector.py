@@ -113,6 +113,7 @@ class Selector:
         @ti.kernel
         def get_ids_kernel():
             self.num_selected[None] = 0
+            ti.loop_config(serialize=True)
             for i in range(self.is_in_rect.shape[0]):
                 if self.is_in_rect[i]:
                     self.selected_ids[self.num_selected[None]] = i
@@ -153,7 +154,7 @@ def visualize(particle_pos):
 
         canvas.scene(scene)
         window.show()
-        ti.profiler.print_kernel_profiler_info()
+        # ti.profiler.print_kernel_profiler_info()
 
 if __name__ == "__main__":
     import trimesh
